@@ -11,7 +11,13 @@ import {
 	fetchData,
 } from '../../actions/api-actions';
 
+import {
+	LoadingStatusEnum,
+} from '../../utils/utils';
+
 import styles from './styles';
+
+import FullScreenLoading from '../full-screen-loading';
 
 class Main extends Component {
 	_handlePressFetchDataButton = () => {
@@ -38,14 +44,24 @@ class Main extends Component {
 			_renderData,
 		} = this;
 
+		const {
+			loadingStatus,
+		} = this.props;
+
 		return (
 			<View style={styles.container}>
-				<Button
-					title='Fetch Data'
-					onPress={_handlePressFetchDataButton}
-				/>
+				<View style={styles.contentContainer}>
+					<Button
+						title='Fetch Data'
+						onPress={_handlePressFetchDataButton}
+					/>
 
-				{_renderData()}
+					{_renderData()}
+				</View>
+
+				<FullScreenLoading
+					hidden={!(LoadingStatusEnum.LOADING === loadingStatus)}
+				/>
 			</View>
 		);
 	}
@@ -66,6 +82,8 @@ const mapStateToProps = (state) => {
 
 	return {
 		data: api.get("data"),
+		loadingStatus: api.get("loadingStatus"),
+		loadingStatusMessage: api.get("loadingStatusMessage"),
 	};
 };
 
