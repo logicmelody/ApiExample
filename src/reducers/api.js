@@ -3,11 +3,11 @@ import {
 	START_FETCH_DATA,
 	FETCH_DATA_SUCCESS,
 	FETCH_DATA_FAILED,
-} from './action-types';
+} from '../actions/action-types';
 import { LoadingStatusEnum } from '../utils/utils';
 
 const INITIAL_STATE = Map({
-	data: {},
+	data: undefined,
 	loadingStatus: LoadingStatusEnum.NONE,
 	loadingStatusMessage: "",
 });
@@ -15,7 +15,8 @@ const INITIAL_STATE = Map({
 export default function api(state = INITIAL_STATE, action) {
 	switch (action.type) {
 		case START_FETCH_DATA:
-			return state.set("loadingStatus", LoadingStatusEnum.LOADING);
+			return state
+				.set("loadingStatus", LoadingStatusEnum.LOADING);
 
 		case FETCH_DATA_SUCCESS:
 			return state

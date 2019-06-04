@@ -3,6 +3,7 @@ import { ajax } from "rxjs/ajax";
 import {
 	switchMap,
 	map,
+	catchError,
 } from 'rxjs/operators';
 
 import {

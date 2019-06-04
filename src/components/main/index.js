@@ -7,16 +7,35 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
+import {
+	fetchData,
+} from '../../actions/api-actions';
+
 import styles from './styles';
 
 class Main extends Component {
 	_handlePressFetchDataButton = () => {
+		this.props.fetchData();
+	}
 
+	_renderData = () => {
+		const {
+			data,
+		} = this.props;
+
+		if (data) {
+			return (
+				<Text style={styles.responseText}>
+					{`Response:\n ${JSON.stringify(data)}`}
+				</Text>
+			);
+		}
 	}
 
 	render() {
 		const {
 			_handlePressFetchDataButton,
+			_renderData,
 		} = this;
 
 		return (
@@ -26,9 +45,7 @@ class Main extends Component {
 					onPress={_handlePressFetchDataButton}
 				/>
 
-				<Text style={styles.responseText}>
-					{`Response:\n ${'123456'}`}
-				</Text>
+				{_renderData()}
 			</View>
 		);
 	}
@@ -48,11 +65,12 @@ const mapStateToProps = (state) => {
 	} = state;
 
 	return {
-		api,
+		data: api.get("data"),
 	};
 };
 
 const mapDispatchToProps = {
+	fetchData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
