@@ -20,7 +20,7 @@ export function fetchDataEpic(action$) {
 		ofType(START_FETCH_DATA),
 		switchMap(action =>
 			ajax({
-				url: 'https://jsonplaceholder.typicode.com/posts/1',
+				url: action.url,
 			}).pipe(
 				map(payload => payload.response),
 				map(payload => fetchDataSuccess(payload)),

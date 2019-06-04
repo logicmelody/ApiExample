@@ -4,9 +4,10 @@ import {
 	FETCH_DATA_FAILED,
 } from './action-types';
 
-export function fetchData() {
+export function fetchData(url) {
 	return {
 		type: START_FETCH_DATA,
+		url,
 	};
 }
 

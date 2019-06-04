@@ -22,7 +22,11 @@ import FullScreenLoading from '../full-screen-loading';
 
 class Main extends Component {
 	_handlePressFetchDataButton = () => {
-		this.props.fetchData();
+		this.props.fetchData('https://jsonplaceholder.typicode.com/posts/1');
+	}
+
+	_handlePressFetchWrongDataButton = () => {
+		this.props.fetchData('https://jsonplode.com/posts/1');
 	}
 
 	_renderData = () => {
@@ -42,6 +46,7 @@ class Main extends Component {
 	render() {
 		const {
 			_handlePressFetchDataButton,
+			_handlePressFetchWrongDataButton,
 			_renderData,
 		} = this;
 
@@ -55,6 +60,11 @@ class Main extends Component {
 					<Button
 						title='Fetch Data'
 						onPress={_handlePressFetchDataButton}
+					/>
+
+					<Button
+						title='Fetch Wrong Data'
+						onPress={_handlePressFetchWrongDataButton}
 					/>
 
 					{_renderData()}
