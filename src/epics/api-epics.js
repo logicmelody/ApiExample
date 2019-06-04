@@ -1,22 +1,30 @@
 import { ofType } from 'redux-observable';
-import { of } from 'rxjs';
+import { ajax } from "rxjs/ajax";
 import {
 	switchMap,
 	map,
-	delay,
-	takeUntil,
-	filter,
 } from 'rxjs/operators';
 
 import {
+	START_FETCH_DATA,
 } from '../actions/action-types';
 
-export function apiEpic(action$) {
+import {
+	fetchDataSuccess,
+	fetchDataFailed,
+} from '../actions/api-actions';
+
+export function fetchDataEpic(action$) {
 	return action$.pipe(
-		switchMap(action => {
-			return {
-				type: ""
-			};
-		})
+		ofType(START_FETCH_DATA),
+		switchMap(action =>
+			ajax({
+				url: 'https://jsonplaceholder.typicode.com/posts/1',
+			}).pipe(
+				map(payload => payload.response),
+				map(payload => fetchDataSuccess(payload)),
+				catchError(error => [fetchDataFailed(error)])
+			)
+		)
 	);
 }

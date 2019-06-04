@@ -1,11 +1,11 @@
 import { combineEpics } from 'redux-observable';
 
 import {
-	apiEpic,
+	fetchDataEpic,
 } from './api-epics';
 
 const epics = combineEpics(
-	apiEpic,
+	fetchDataEpic,
 );
 
 export default epics;
