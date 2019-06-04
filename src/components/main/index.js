@@ -4,6 +4,7 @@ import {
 	View,
 	Text,
 	Button,
+	Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -64,6 +65,19 @@ class Main extends Component {
 				/>
 			</View>
 		);
+	}
+
+	componentDidUpdate(prevProps) {
+		const {
+			loadingStatus,
+			loadingStatusMessage,
+		} = this.props;
+
+		if (LoadingStatusEnum.LOADING === prevProps.loadingStatus) {
+			if (LoadingStatusEnum.FAILED === loadingStatus) {
+				Alert.alert(JSON.stringify(loadingStatusMessage));
+			}
+		}
 	}
 }
 
