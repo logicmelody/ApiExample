@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Provider } from 'react-redux';
+import initializeStore from './initialize-store';
 
-import styles from './styles';
+import Main from './components/main';
+
+const store = initializeStore();
 
 class App extends Component {
 	render() {
 		return (
-			<View style={styles.container}>
-				<Text>Welcome to React Native!</Text>
-			</View>
+			<Provider store={store}>
+				<Main />
+			</Provider>
 		);
 	}
 }
